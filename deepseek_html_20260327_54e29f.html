@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vinicius Amaral | Back-End Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Fira Code', monospace;
+      background: #0a0c10;
+      color: #eef2ff;
+      line-height: 1.5;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Fundo com código Python animado */
+    .code-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: #0a0c10;
+      overflow: hidden;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+      color: rgba(0, 255, 255, 0.15);
+      white-space: pre;
+      pointer-events: none;
+    }
+
+    .code-line {
+      display: block;
+      margin: 0;
+      padding: 0;
+      animation: scrollCode 30s linear infinite;
+      opacity: 0.4;
+    }
+
+    @keyframes scrollCode {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* layout principal: foto esquerda + conteúdo direita */
+    .portfolio-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .left-col {
+      flex: 1.2;
+      min-width: 260px;
+      background: rgba(15, 25, 35, 0.75);
+      backdrop-filter: blur(8px);
+      border-radius: 2rem;
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+
+    .right-col {
+      flex: 2.5;
+      min-width: 280px;
+    }
+
+    /* foto e avatar */
+    .profile-photo {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #0ff;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+      background: #1e2a3a;
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* fallback caso não tenha imagem */
+    .photo-placeholder {
+      background: linear-gradient(135deg, #0ff, #f0f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: #0a0c10;
+    }
+
+    .name {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, #0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .role {
+      color: #9ca3af;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .contact-links a {
+      background: rgba(0, 255, 255, 0.1);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      text-decoration: none;
+      color: #0ff;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      transition: 0.2s;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .contact-links a:hover {
+      background: #0ff;
+      color: #0a0c10;
+      border-color: #0ff;
+      transform: scale(1.02);
+    }
+
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      margin: 1rem 0;
+    }
+
+    .social-row a {
+      color: #cbd5e6;
+      font-size: 1.8rem;
+      transition: 0.2s;
+    }
+
+    .social-row a:hover {
+      color: #0ff;
+      transform: translateY(-3px);
+    }
+
+    /* seções do lado direito */
+    .section {
+      background: rgba(18, 25, 40, 0.7);
+      backdrop-filter: blur(4px);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid #0ff;
+      transition: transform 0.2s;
+    }
+
+    .section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #0ff;
+      letter-spacing: -0.3px;
+    }
+
+    .section h2 i {
+      font-size: 1.4rem;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 1rem 0;
+    }
+
+    .tech-badge {
+      background: rgba(0, 255, 255, 0.15);
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #b0f0ff;
+      border: 1px solid rgba(0, 255, 255, 0.4);
+    }
+
+    /* Cards de projeto com espaço para imagem */
+    .project-card {
+      background: rgba(10, 15, 25, 0.8);
+      backdrop-filter: blur(4px);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 255, 255, 0.2);
+      border-color: rgba(0, 255, 255, 0.6);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 200px;
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    }
+
+    .project-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .project-card:hover .project-img img {
+      transform: scale(1.02);
+    }
+
+    .project-info {
+      padding: 1.2rem;
+    }
+
+    .project-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: #cbd5e6;
+      margin-bottom: 0.8rem;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tech-tag {
+      background: rgba(0, 255, 255, 0.2);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      color: #0ff;
+    }
+
+    .project-links a {
+      color: #0ff;
+      text-decoration: none;
+      margin-right: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .project-links a:hover {
+      text-decoration: underline;
+    }
+
+    hr {
+      border-color: rgba(0, 255, 255, 0.2);
+      margin: 1rem 0;
+    }
+
+    .btn-glow {
+      display: inline-block;
+      background: linear-gradient(90deg, #0ff, #0a8f8f);
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      font-weight: bold;
+      color: #0a0c10;
+      text-decoration: none;
+      margin-top: 1rem;
+      transition: 0.2s;
+    }
+
+    .btn-glow:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 12px #0ff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: #6c86a3;
+      border-top: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    @media (max-width: 850px) {
+      .portfolio-grid {
+        flex-direction: column;
+      }
+      .left-col {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fundo com código Python animado -->
+  <div class="code-bg" id="code-bg"></div>
+
+  <div class="container">
+    <div class="portfolio-grid">
+      <!-- COLUNA ESQUERDA: FOTO + CONTATO -->
+      <div class="left-col">
+        <div class="profile-photo">
+          <!-- Foto local na mesma pasta -->
+          <img src="foto.png" alt="Vinicius Amaral" id="profile-img">
+        </div>
+        <div class="name">Vinicius Amaral</div>
+        <div class="role">⚡ Back-End Developer | Node.js • Python</div>
+
+        <!-- Telefone e e-mail em destaque -->
+        <div class="contact-links">
+          <a href="tel:+5551984935798"><i class="fas fa-phone-alt"></i> (51) 98493-5798</a>
+          <a href="mailto:vinialam1@gmail.com"><i class="fas fa-envelope"></i> vinialam1@gmail.com</a>
+        </div>
+
+        <!-- Redes sociais -->
+        <div class="social-row">
+          <a href="https://linkedin.com/in/vinicius-amaral-3b4a06348" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/Vinialam" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+        <hr>
+        <div style="font-size:0.85rem; color:#9ab3d0;">
+          <i class="fas fa-map-marker-alt"></i> Gravataí/RS • Disponível imediato<br>
+          <i class="fas fa-bolt"></i> Remoto | Híbrido
+        </div>
+      </div>
+
+      <!-- COLUNA DIREITA: CONTEÚDO -->
+      <div class="right-col">
+        <!-- Resumo profissional -->
+        <div class="section">
+          <h2><i class="fas fa-user-astronaut"></i> Perfil Back-End</h2>
+          <p>Estudante do 5º semestre de ADS (Uniasselvi - conclusão Jul/2026). Desenvolvedor autônomo PJ/MEI com entregas reais de APIs RESTful, microsserviços e sistemas completos. Experiência sólida em Node.js, Python, bancos SQL/NoSQL, Docker e CI/CD. Apaixonado por arquitetura limpa e performance.</p>
+          <div class="tech-stack">
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">Python (FastAPI/Flask)</span>
+            <span class="tech-badge">PostgreSQL/MySQL</span>
+            <span class="tech-badge">MongoDB</span>
+            <span class="tech-badge">Firebase</span>
+            <span class="tech-badge">Docker</span>
+            <span class="tech-badge">Git/GitHub Actions</span>
+            <span class="tech-badge">Railway/Render</span>
+          </div>
+        </div>
+
+        <!-- Projetos com espaço para screenshot -->
+        <div class="section">
+          <h2><i class="fas fa-code"></i> Projetos em destaque</h2>
+
+          <!-- Projeto 1 -->
+          <div class="project-card">
+            <div class="project-img">
+              <img src="https://via.placeholder.com/800x400/1f2a3e/0ff?text=Driver+Coasts" alt="Driver Coasts screenshot">
+            </div>
+            <div class="project-info">
+              <div class="project-title">🚗 Driver Coasts - SaaS financeiro</div>
+              <div class="project-desc">Cálculo de lucro real e custos para motoristas de app. Backend Node.js + PostgreSQL, frontend React, deploy CI/CD.</div>
+              <div class="tech-tags">
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">PostgreSQL</span>
+                <span class="tech-tag">React</span>
+              </div>
+              <div class="project-links">
+                <a href="#">🔗 Demonstração</a>
+                <a href="#">💻 Código</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projeto 2 -->
+          <div class="project-card">
+            <div class="project-img">
+              <img src="https://via.placeholder.com/800x400/1f2a3e/0ff?text=TecGames+O.S." alt="TecGames O.S. screenshot">
+            </div>
+            <div class="project-info">
+              <div class="project-title">🎮 TecGames O.S. - Gestão para assistência técnica gamer</div>
+              <div class="project-desc">API RESTful com Firebase Firestore e Admin SDK, autenticação granular, controle de permissões.</div>
+              <div class="tech-tags">
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">Firebase</span>
+                <span class="tech-tag">React</span>
+              </div>
+              <div class="project-links">
+                <a href="#">🔗 Demonstração</a>
+                <a href="#">💻 Código</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projeto 3 -->
+          <div class="project-card">
+            <div class="project-img">
+              <img src="https://via.placeholder.com/800x400/1f2a3e/0ff?text=PDV+Brechó" alt="PDV Brechó screenshot">
+            </div>
+            <div class="project-info">
+              <div class="project-title">🛍️ PDV + Admin para Brechó</div>
+              <div class="project-desc">Ponto de venda com integração de pagamentos. Backend híbrido Node.js + Python (FastAPI), MySQL/PostgreSQL.</div>
+              <div class="tech-tags">
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">FastAPI</span>
+                <span class="tech-tag">MySQL</span>
+              </div>
+              <div class="project-links">
+                <a href="#">🔗 Demonstração</a>
+                <a href="#">💻 Código</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experiência autônoma -->
+        <div class="section">
+          <h2><i class="fas fa-rocket"></i> Experiência como Autônomo PJ/MEI</h2>
+          <div>
+            <p><strong>Desenvolvedor Back-End / Full Stack | 2020 – Atual</strong></p>
+            <ul style="margin-left: 1.2rem; margin-top: 0.5rem; color:#cbd5e6;">
+              <li>Construção e manutenção de sistemas web e APIs RESTful para diversos clientes, com foco em escalabilidade e boas práticas.</li>
+              <li>Gestão ágil com Scrum, deploy automatizado via CI/CD (Railway, Render, GitHub Actions).</li>
+              <li>Refatoração de arquitetura Node.js, reduzindo código repetitivo em ~50% em 3 projetos críticos.</li>
+            </ul>
+          </div>
+          <a href="https://github.com/Vinialam" target="_blank" class="btn-glow"><i class="fab fa-github"></i> Ver mais no GitHub →</a>
+        </div>
+
+        <!-- Formação -->
+        <div class="section">
+          <h2><i class="fas fa-graduation-cap"></i> Formação & Certificações</h2>
+          <p><strong>Tecnólogo em Análise e Desenvolvimento de Sistemas</strong> – Uniasselvi (2024 – Jul/2026)</p>
+          <div class="tech-stack">
+            <span class="tech-badge">SQL do Zero ao Avançado (Udemy)</span>
+            <span class="tech-badge">Banco de Dados - Uniasselvi</span>
+            <span class="tech-badge">Gerência de Projetos</span>
+          </div>
+          <p style="margin-top: 0.8rem;"><i class="fas fa-language"></i> Inglês: leitura técnica fluente | Comunicação colaborativa</p>
+        </div>
+
+        <!-- Contato extra -->
+        <div class="section" style="text-align: center; border-left-color: #f0f;">
+          <h2><i class="fas fa-bolt"></i> Pronto para o próximo desafio</h2>
+          <p>📍 Gravataí / Porto Alegre - RS<br>📅 Disponibilidade imediata (remoto / híbrido)</p>
+          <div class="contact-links" style="justify-content: center; margin-top: 0.5rem;">
+            <a href="tel:+5551984935798"><i class="fas fa-phone-alt"></i> (51) 98493-5798</a>
+            <a href="mailto:vinialam1@gmail.com"><i class="fas fa-paper-plane"></i> vinialam1@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <i class="fas fa-terminal"></i> Tokyo Night • Back-End craftmanship • Python & Node.js
+  </footer>
+
+  <script>
+    // Cria o background animado com código Python
+    function createPythonBackground() {
+      const bg = document.getElementById('code-bg');
+      const codeSnippets = [
+        "def calculate_profit(revenue, costs):",
+        "    return revenue - costs",
+        "",
+        "class DriverCoasts:",
+        "    def __init__(self, user):",
+        "        self.user = user",
+        "        self.rides = []",
+        "",
+        "@app.route('/api/v1/projects')",
+        "def get_projects():",
+        "    return jsonify(projects)",
+        "",
+        "async def fetch_user_data(user_id):",
+        "    async with aiohttp.ClientSession() as session:",
+        "        ...",
+        "",
+        "docker run -p 3000:3000 myapp",
+        "npm install express",
+        "git commit -m 'feat: add rest api'",
+        "pytest tests/",
+        "SELECT * FROM users WHERE status = 'active';"
+      ];
+
+      // Duplica o conteúdo para criar um loop contínuo
+      let fullText = '';
+      for (let i = 0; i < 15; i++) {
+        fullText += codeSnippets.join('\n') + '\n';
+      }
+
+      const lines = fullText.split('\n');
+      const container = document.createElement('div');
+      container.style.position = 'absolute';
+      container.style.top = '0';
+      container.style.left = '0';
+      container.style.width = '100%';
+      container.style.whiteSpace = 'pre';
+      container.style.fontSize = '12px';
+      container.style.fontFamily = "'Fira Code', monospace";
+      container.style.lineHeight = '1.4';
+      container.style.color = 'rgba(0, 255, 255, 0.2)';
+      container.style.animation = 'scrollCode 40s linear infinite';
+
+      lines.forEach(line => {
+        const span = document.createElement('div');
+        span.textContent = line;
+        span.style.margin = '0';
+        span.style.padding = '0';
+        container.appendChild(span);
+      });
+
+      bg.appendChild(container);
+    }
+
+    createPythonBackground();
+  </script>
+</body>
+</html>
